@@ -9,6 +9,7 @@ import (
 )
 
 var (
+	isAWS      bool
 	bucket     string
 	accessKey  string
 	secretKey  string
@@ -19,6 +20,7 @@ var (
 )
 
 func init() {
+	flag.BoolVar(&isAWS, "isAWS", true, "Bool to pick a platform")
 	flag.StringVar(&bucket, "bucket", "", "S3 bucket name")
 	flag.StringVar(&accessKey, "accessKey", "", "AWS access key")
 	flag.StringVar(&secretKey, "secretKey", "", "AWS secret key")
@@ -32,13 +34,13 @@ func main() {
 
 	lstore = make(map[string]time.Time)
 
-	aws := true
-
-	if aws {
+	switch {
+	case isAWS:
 		s3Handle()
 		if autoUpdate {
 			go autoUpdater()
 		}
+		break
 	}
 
 	fs := http.FileServer(http.Dir("./local"))
