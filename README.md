@@ -25,7 +25,7 @@ command | type | default value| Definition
 `address` | `string` | "127.0.0.1:3000" | Local host address pages are served
 `autoUpdate` | `bool` | `true` | A boolean flag to enable to disable periodic checks bucket checks. By default it is 15 mins. 
 
-### Future imporvement
+### Future improvements
 - Ability to use different cloud platforms
 - Ability to support dynamic server side scripting
 
