@@ -1,6 +1,6 @@
 # s4 [![GitHub go.mod Go version of a Go module](https://img.shields.io/github/go-mod/go-version/gomods/athens.svg)](https://github.com/gomods/athens) [![Go Report Card](https://goreportcard.com/badge/github.com/tejabeta/s4)](https://goreportcard.com/report/github.com/tejabeta/s4)
 
-A tiny CLI to serve static websites from `**AWS S3**` Object store bucket with `index.html` as the entry file. 
+A tiny CLI to serve static websites from **`AWS S3`** Object store bucket with `index.html` as the entry file. 
 
 Could work with private buckets. Prerequisites, make sure you have appropriate `IAM` access to the bucket and `index.html` inside the bucket.
 
