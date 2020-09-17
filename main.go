@@ -17,6 +17,8 @@ var (
 	region     string
 	autoUpdate bool
 	lstore     map[string]time.Time
+	tlsCert    string
+	tlsKey     string
 )
 
 func init() {
@@ -25,6 +27,8 @@ func init() {
 	flag.StringVar(&accessKey, "accessKey", "", "AWS access key")
 	flag.StringVar(&secretKey, "secretKey", "", "AWS secret key")
 	flag.StringVar(&region, "region", "", "AWS Region Bucket resides")
+	flag.StringVar(&tlsCert, "tlsCert", "", "TLS Certificate for the server")
+	flag.StringVar(&tlsKey, "tlsKey", "", "TLS private key for the server")
 	flag.StringVar(&address, "address", "127.0.0.1:3000", "address:port to serve the s3 content")
 	flag.BoolVar(&autoUpdate, "autoUpdate", true, "Bool to auto update")
 }
