@@ -16,14 +16,12 @@ limitations under the License.
 package cmd
 
 import (
-	"flag"
-	"log"
-	"net/http"
-	"s4/handlers"
-	"time"
+	"s4/controllers"
 
 	"github.com/spf13/cobra"
 )
+
+const appType string = "static"
 
 // staticCmd represents the static command
 var staticCmd = &cobra.Command{
@@ -32,65 +30,17 @@ var staticCmd = &cobra.Command{
 	Long: `Use the static command with S4 to serve a static
 website with index.html pointing inside the object storage.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		// fmt.Println("static called")
 		staticWebsite()
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(staticCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// staticCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// staticCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
 func staticWebsite() {
-	flag.Parse()
 
-	lstore = make(map[string]time.Time)
+	fetcher := controllers.Fetcher{IsAWS: isAWS, Bucket: bucket, AccessKey: accessKey, SecretKey: secretKey, Address: address, Region: region, AutoUpdate: autoUpdate, AppType: appType}
 
-	switch {
-	case isAWS:
-		s3Handle()
-		if autoUpdate {
-			go autoUpdater()
-		}
-		break
-	}
-
-	fs := http.FileServer(http.Dir("./local"))
-	log.Fatal(http.ListenAndServe(address, fs))
-	log.Println("Server started listening on: ", address)
-}
-
-func s3Handle() {
-	s3 := handlers.S3Info{Bucket: bucket, AccessKey: accessKey, SecretKey: secretKey, Region: region}
-
-	s3.BucketReader()
-
-	for _, item := range s3.S3Objects {
-		if v, ok := lstore[item.Name]; !ok || v != item.LastModified {
-			lstore[item.Name] = item.LastModified
-			s3.ObjectDownloader(item.Name, "local")
-		}
-	}
-}
-
-func autoUpdater() {
-
-	autoUpdater := time.NewTicker(15 * time.Minute)
-
-	for {
-		select {
-		case <-autoUpdater.C:
-			s3Handle()
-		}
-	}
+	fetcher.Run()
 }
