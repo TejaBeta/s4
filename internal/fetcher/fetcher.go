@@ -11,14 +11,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-package controllers
+package fetcher
 
 import (
 	"log"
 	"net/http"
 	"time"
 
-	"github.com/tejabeta/s4/handlers"
+	aws "github.com/tejabeta/s4/pkg/s3"
 )
 
 type Fetcher struct {
@@ -51,7 +51,7 @@ func (fetcher *Fetcher) Run() {
 }
 
 func (fetcher *Fetcher) s3Handle() {
-	s3 := handlers.S3Info{Bucket: fetcher.Bucket, AccessKey: fetcher.AccessKey, SecretKey: fetcher.SecretKey, Region: fetcher.Region}
+	s3 := aws.S3Info{Bucket: fetcher.Bucket, AccessKey: fetcher.AccessKey, SecretKey: fetcher.SecretKey, Region: fetcher.Region}
 
 	s3.BucketReader()
 

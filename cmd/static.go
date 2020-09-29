@@ -14,7 +14,7 @@ limitations under the License.
 package cmd
 
 import (
-	"github.com/tejabeta/s4/controllers"
+	fileFetcher "github.com/tejabeta/s4/internal/fetcher"
 
 	"github.com/spf13/cobra"
 )
@@ -38,7 +38,7 @@ func init() {
 
 func staticWebsite() {
 
-	fetcher := controllers.Fetcher{IsAWS: isAWS, Bucket: bucket, AccessKey: accessKey, SecretKey: secretKey, Address: address, Region: region, AutoUpdate: autoUpdate, AppType: appType}
+	fetcher := fileFetcher.Fetcher{IsAWS: isAWS, Bucket: bucket, AccessKey: accessKey, SecretKey: secretKey, Address: address, Region: region, AutoUpdate: autoUpdate, AppType: appType}
 
 	fetcher.Run()
 }
