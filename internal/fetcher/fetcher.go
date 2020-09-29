@@ -14,6 +14,7 @@ limitations under the License.
 package fetcher
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"time"
@@ -46,8 +47,14 @@ func (fetcher *Fetcher) Run() {
 	}
 
 	fs := http.FileServer(http.Dir("./local"))
-	log.Println("Server started listening on: ", fetcher.Address)
-	log.Fatal(http.ListenAndServe(fetcher.Address, fs))
+
+	switch fetcher.AppType {
+	case "static":
+		log.Println("Server started listening on: ", fetcher.Address)
+		log.Fatal(http.ListenAndServe(fetcher.Address, fs))
+	default:
+		fmt.Println("No option selected")
+	}
 }
 
 func (fetcher *Fetcher) s3Handle() {
