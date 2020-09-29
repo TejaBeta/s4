@@ -38,7 +38,7 @@ func init() {
 
 func fileServer() {
 
-	fetcher := fileFetcher.Fetcher{IsAWS: isAWS, Bucket: bucket, AccessKey: accessKey, SecretKey: secretKey, Address: address, Region: region, AutoUpdate: autoUpdate, AppType: "fileserver"}
+	fetcher := fileFetcher.Fetcher{IsAWS: isAWS, Bucket: bucket, AccessKey: accessKey, SecretKey: secretKey, Address: address, Region: region, LocalDir: localDir, AutoUpdate: autoUpdate, AppType: "fileserver"}
 
 	fetcher.Run()
 }

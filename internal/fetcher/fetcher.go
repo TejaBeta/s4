@@ -17,8 +17,11 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
+	"path/filepath"
 	"time"
 
+	"github.com/fsnotify/fsnotify"
 	aws "github.com/tejabeta/s4/pkg/s3"
 )
 
@@ -34,6 +37,10 @@ type Fetcher struct {
 	LStore     map[string]time.Time
 	AppType    string
 }
+
+var (
+	watcher *fsnotify.Watcher
+)
 
 func (fetcher *Fetcher) Run() {
 	fetcher.LStore = make(map[string]time.Time)
@@ -53,6 +60,9 @@ func (fetcher *Fetcher) Run() {
 	case "static":
 		log.Println("Server started listening on: ", fetcher.Address)
 		log.Fatal(http.ListenAndServe(fetcher.Address, fs))
+	case "fileserver":
+		log.Println("Inside fileserver")
+		fileWatcher(fetcher.LocalDir)
 	default:
 		fmt.Println("Option doesn't exist")
 	}
@@ -79,4 +89,33 @@ func (fetcher *Fetcher) autoUpdater() {
 			fetcher.s3Handle()
 		}
 	}
+}
+
+func fileWatcher(localDir string) {
+	watcher, _ = fsnotify.NewWatcher()
+	defer watcher.Close()
+
+	if err := filepath.Walk(localDir, watchDir); err != nil {
+		fmt.Println("ERROR", err)
+	}
+	done := make(chan bool)
+	go func() {
+		for {
+			select {
+			case event := <-watcher.Events:
+				fmt.Printf("EVENT! %T, %v\n", event, event.Op)
+
+			case err := <-watcher.Errors:
+				fmt.Println("ERROR", err)
+			}
+		}
+	}()
+	<-done
+}
+
+func watchDir(path string, fi os.FileInfo, err error) error {
+	if fi.Mode().IsDir() {
+		return watcher.Add(path)
+	}
+	return nil
 }

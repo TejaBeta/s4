@@ -36,7 +36,7 @@ func init() {
 
 func staticWebsite() {
 
-	fetcher := fileFetcher.Fetcher{IsAWS: isAWS, Bucket: bucket, AccessKey: accessKey, SecretKey: secretKey, Address: address, Region: region, AutoUpdate: autoUpdate, AppType: "static"}
+	fetcher := fileFetcher.Fetcher{IsAWS: isAWS, Bucket: bucket, AccessKey: accessKey, SecretKey: secretKey, Address: address, Region: region, LocalDir: localDir, AutoUpdate: autoUpdate, AppType: "static"}
 
 	fetcher.Run()
 }
