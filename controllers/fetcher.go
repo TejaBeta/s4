@@ -16,8 +16,9 @@ package controllers
 import (
 	"log"
 	"net/http"
-	"s4/handlers"
 	"time"
+
+	"github.com/tejabeta/s4/handlers"
 )
 
 type Fetcher struct {
@@ -45,8 +46,8 @@ func (fetcher *Fetcher) Run() {
 	}
 
 	fs := http.FileServer(http.Dir("./local"))
-	log.Fatal(http.ListenAndServe(fetcher.Address, fs))
 	log.Println("Server started listening on: ", fetcher.Address)
+	log.Fatal(http.ListenAndServe(fetcher.Address, fs))
 }
 
 func (fetcher *Fetcher) s3Handle() {

@@ -15,7 +15,7 @@ limitations under the License.
 */
 package main
 
-import "s4/cmd"
+import "github.com/tejabeta/s4/cmd"
 
 func main() {
 	cmd.Execute()

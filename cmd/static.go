@@ -14,7 +14,7 @@ limitations under the License.
 package cmd
 
 import (
-	"s4/controllers"
+	"github.com/tejabeta/s4/controllers"
 
 	"github.com/spf13/cobra"
 )
