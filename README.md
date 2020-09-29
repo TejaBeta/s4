@@ -25,6 +25,43 @@ command | type | default value| Definition
 `address` | `string` | "127.0.0.1:3000" | Local host address pages are served
 `autoUpdate` | `bool` | `true` | A boolean flag to enable to disable periodic checks bucket checks. By default it is 15 mins. 
 
+## Main Menu
+
+```
+
+$s4 --help
+
+A tiny CLI tool to that acts as a middleware to build
+services making use of AWS S3 object store as a backend. 
+
+Currently supports hosting a static website from private AWS S3
+object store with pointing to index.html. And also supports the
+hosting a private PyPi server with S3 object store as package storage.
+
+Usage:
+  s4 [flags]
+  s4 [command]
+
+Available Commands:
+  help        Help about any command
+  static      Static serves a website from a specific handler
+
+Flags:
+      --accessKey string   AWS access key
+      --address string     address:port to serve the s3 content (default "127.0.0.1:3000")
+      --autoUpdate         Bool to auto update (default true)
+      --bucket string      S3 bucket name
+      --config string      config file (default is $HOME/.s4.yaml)
+  -h, --help               help for s4
+      --isAWS              Bool to pick a platform (default true)
+      --region string      AWS Region Bucket resides
+      --secretKey string   AWS secret key
+  -t, --toggle             Help message for toggle
+
+Use "s4 [command] --help" for more information about a command.
+
+```
+
 ### Future improvements
 - Ability to use different cloud platforms
 - Ability to support dynamic server side scripting
