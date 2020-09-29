@@ -10,20 +10,7 @@ Execution of `make build` creates an executable inside `bin` directory insidse s
 
 ### Run locally
 
-`s4 static --region="myRegion" --bucket="myBucket" --accessKey="myAccessKey" --secretKey="mySecretKey"`
-
-
-### CLI Options
-
-command | type | default value| Definition
---------|------|--------------|------------
-`isAWS` | `bool`  | `true`  | A boolean flag to pick a platform
-`bucket` | `string` | "" | Bucket name from where tool has to read
-`accessKey` | `string` | "" | IAM Access Key for the tool to read a private bucket
-`secretKey` | `string` | "" | IAM Secret Key for the tool to read a private bucket
-`region`  | `string` | "" | AWS Region where the bucket resides 
-`address` | `string` | "127.0.0.1:3000" | Local host address pages are served
-`autoUpdate` | `bool` | `true` | A boolean flag to enable to disable periodic checks bucket checks. By default it is 15 mins. 
+`s4 <<cmd>> --region="myRegion" --bucket="myBucket" --accessKey="myAccessKey" --secretKey="mySecretKey"`
 
 ## Main Menu
 
