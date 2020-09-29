@@ -11,13 +11,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-package controllers
+package fetcher
 
 import (
 	"log"
 	"net/http"
-	"s4/handlers"
 	"time"
+
+	aws "github.com/tejabeta/s4/pkg/s3"
 )
 
 type Fetcher struct {
@@ -45,12 +46,12 @@ func (fetcher *Fetcher) Run() {
 	}
 
 	fs := http.FileServer(http.Dir("./local"))
-	log.Fatal(http.ListenAndServe(fetcher.Address, fs))
 	log.Println("Server started listening on: ", fetcher.Address)
+	log.Fatal(http.ListenAndServe(fetcher.Address, fs))
 }
 
 func (fetcher *Fetcher) s3Handle() {
-	s3 := handlers.S3Info{Bucket: fetcher.Bucket, AccessKey: fetcher.AccessKey, SecretKey: fetcher.SecretKey, Region: fetcher.Region}
+	s3 := aws.S3Info{Bucket: fetcher.Bucket, AccessKey: fetcher.AccessKey, SecretKey: fetcher.SecretKey, Region: fetcher.Region}
 
 	s3.BucketReader()
 
