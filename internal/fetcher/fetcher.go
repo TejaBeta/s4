@@ -61,7 +61,6 @@ func (fetcher *Fetcher) Run() {
 		log.Println("Server started listening on: ", fetcher.Address)
 		log.Fatal(http.ListenAndServe(fetcher.Address, fs))
 	case "fileserver":
-		log.Println("Inside fileserver")
 		fileWatcher(fetcher.LocalDir)
 	default:
 		fmt.Println("Option doesn't exist")
@@ -103,10 +102,11 @@ func fileWatcher(localDir string) {
 		for {
 			select {
 			case event := <-watcher.Events:
-				fmt.Printf("EVENT! %T, %v\n", event, event.Op)
+				log.Printf("%v, Eventtype: %v\n", event, event.Op)
 
 			case err := <-watcher.Errors:
-				fmt.Println("ERROR", err)
+				log.Println("ERROR", err)
+				return
 			}
 		}
 	}()
