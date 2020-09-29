@@ -34,6 +34,7 @@ var (
 	address    string
 	region     string
 	autoUpdate bool
+	localDir   string
 	lstore     map[string]time.Time
 )
 
@@ -72,12 +73,12 @@ func init() {
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 	rootCmd.PersistentFlags().BoolVar(&isAWS, "isAWS", true, "Bool to pick a platform")
 	rootCmd.PersistentFlags().StringVar(&bucket, "bucket", "", "S3 bucket name")
 	rootCmd.PersistentFlags().StringVar(&accessKey, "accessKey", "", "AWS access key")
 	rootCmd.PersistentFlags().StringVar(&secretKey, "secretKey", "", "AWS secret key")
 	rootCmd.PersistentFlags().StringVar(&region, "region", "", "AWS Region Bucket resides")
+	rootCmd.PersistentFlags().StringVar(&localDir, "localDir", "./local", "Local directory to sync and serve")
 	rootCmd.PersistentFlags().StringVar(&address, "address", "127.0.0.1:3000", "address:port to serve the s3 content")
 	rootCmd.PersistentFlags().BoolVar(&autoUpdate, "autoUpdate", true, "Bool to auto update")
 }

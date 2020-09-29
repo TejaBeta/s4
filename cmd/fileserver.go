@@ -16,7 +16,7 @@ limitations under the License.
 package cmd
 
 import (
-	"fmt"
+	fileFetcher "github.com/tejabeta/s4/internal/fetcher"
 
 	"github.com/spf13/cobra"
 )
@@ -24,28 +24,21 @@ import (
 // fileserverCmd represents the fileserver command
 var fileserverCmd = &cobra.Command{
 	Use:   "fileserver",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "Serves the purpose of fileserver from a specific handler",
+	Long: `Use the fileserver command with S4 to serve as
+a fileserver similar to NFS but stores files locally as well.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("fileserver called")
+		fileServer()
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(fileserverCmd)
+}
 
-	// Here you will define your flags and configuration settings.
+func fileServer() {
 
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// fileserverCmd.PersistentFlags().String("foo", "", "A help for foo")
+	fetcher := fileFetcher.Fetcher{IsAWS: isAWS, Bucket: bucket, AccessKey: accessKey, SecretKey: secretKey, Address: address, Region: region, AutoUpdate: autoUpdate, AppType: "fileserver"}
 
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// fileserverCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	fetcher.Run()
 }

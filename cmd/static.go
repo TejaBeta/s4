@@ -19,8 +19,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const appType string = "static"
-
 // staticCmd represents the static command
 var staticCmd = &cobra.Command{
 	Use:   "static",
@@ -38,7 +36,7 @@ func init() {
 
 func staticWebsite() {
 
-	fetcher := fileFetcher.Fetcher{IsAWS: isAWS, Bucket: bucket, AccessKey: accessKey, SecretKey: secretKey, Address: address, Region: region, AutoUpdate: autoUpdate, AppType: appType}
+	fetcher := fileFetcher.Fetcher{IsAWS: isAWS, Bucket: bucket, AccessKey: accessKey, SecretKey: secretKey, Address: address, Region: region, AutoUpdate: autoUpdate, AppType: "static"}
 
 	fetcher.Run()
 }

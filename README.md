@@ -43,6 +43,7 @@ Usage:
   s4 [command]
 
 Available Commands:
+  fileserver  Serves the purpose of fileserver from a specific handler
   help        Help about any command
   static      Static serves a website from a specific handler
 
@@ -54,9 +55,9 @@ Flags:
       --config string      config file (default is $HOME/.s4.yaml)
   -h, --help               help for s4
       --isAWS              Bool to pick a platform (default true)
+      --localDir string    Local directory to sync and serve (default "./local")
       --region string      AWS Region Bucket resides
       --secretKey string   AWS secret key
-  -t, --toggle             Help message for toggle
 
 Use "s4 [command] --help" for more information about a command.
 

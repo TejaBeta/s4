@@ -29,6 +29,7 @@ type Fetcher struct {
 	SecretKey  string
 	Address    string
 	Region     string
+	LocalDir   string
 	AutoUpdate bool
 	LStore     map[string]time.Time
 	AppType    string
@@ -46,14 +47,14 @@ func (fetcher *Fetcher) Run() {
 		break
 	}
 
-	fs := http.FileServer(http.Dir("./local"))
+	fs := http.FileServer(http.Dir(fetcher.LocalDir))
 
 	switch fetcher.AppType {
 	case "static":
 		log.Println("Server started listening on: ", fetcher.Address)
 		log.Fatal(http.ListenAndServe(fetcher.Address, fs))
 	default:
-		fmt.Println("No option selected")
+		fmt.Println("Option doesn't exist")
 	}
 }
 
