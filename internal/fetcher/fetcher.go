@@ -66,7 +66,7 @@ func (fetcher *Fetcher) s3Handle() {
 	for _, item := range s3.S3Objects {
 		if v, ok := fetcher.LStore[item.Name]; !ok || v != item.LastModified {
 			fetcher.LStore[item.Name] = item.LastModified
-			s3.ObjectDownloader(item.Name, "local")
+			s3.ObjectDownloader(item.Name, fetcher.LocalDir)
 		}
 	}
 }
